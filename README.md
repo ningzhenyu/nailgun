@@ -75,6 +75,6 @@ You will find a file named _fingerprint.png_ with the extracted fingerprint imag
 ```
 
 ## Contact
-Zhenyu Ning
-zhenyu.ning _at_ wayne.edu
+Zhenyu Ning  
+zhenyu.ning _at_ wayne.edu  
 Compass Lab, Wayne State University (http://compass.cs.wayne.edu)
