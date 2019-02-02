@@ -11,18 +11,50 @@ For more details, please check our website http://compass.cs.wayne.edu/nailgun
 ## Proof of Concept
 We will make two PoCs available on Github:
 
-### PoC1: Reading  _SCR_EL3_  register with a kernel module.
+### PoC #1: Reading  Secure Configuration Register with a kernel module.
+#### Platform
+- Deivce: Raspberry PI 3 Model B+ 
+- Firmware: Raspbian GNU/Linux 9.6 (stretch)
+
+#### Description
+In this PoC, we we use a kernel module running in non-secure EL1 to read Secure Configuration Register (SCR), which is only accessiable in secure state, on Raspberry PI. The fold ```PoC/Read_SCR``` contains the source code and prebuild binaries for two kernel modules. The first kernel module _directly_read.ko_ read the SCR directly, which lead to segmentation fault. The kernel module _nailgun.ko_ leverages Nailgun attack to read the SCR
+
+#### Prepare
+If you are going to build the kernel module from the source code, you need to install the compile tools and kernel headers with the following command,
+```
+pi@raspberrypi:~/ $ sudo apt-get install build-essential raspberrypi-kernel-headers
+```
+Then, get into the source code fold, and compile the kernel module
+```
+pi@raspberrypi:~/ $ cd PoC/Read_SCR
+pi@raspberrypi:~/PoC/Read_SCR $ make
+```
+
+#### Run
+Use _insmod_ command to install the corresponding kernel module, and use _dmesg_ to check the kernel logs.
+```
+pi@raspberrypi:~/PoC/Read_SCR $ sudo insmod directly_read.ko
+pi@raspberrypi:~/PoC/Read_SCR $ dmesg
+pi@raspberrypi:~/PoC/Read_SCR $ sudo insmod nailgun.ko
+pi@raspberrypi:~/PoC/Read_SCR $ dmesg
+```
+The value of the SCR can be found in the kernel log.
   
-### PoC2:  Extracting the fingerprint image.
+### PoC #2:  Extracting the fingerprint image.
+#### Platform
+- Deivce: Huawei Mate 7 (MT-L09)
+- Firmware: MT7-L09V100R001C00B121SP05
+
+#### Description
 In this PoC, we use a kernel module running in non-secure EL1 to extract the fingerprint image
 stored in TEE on Huawei Mate 7. The fold ```PoC/Fingerprint_Extraction``` contains the source code for the kernel module that extracts fingerprint data from TEE, a prebuild binary of the kernel module, and a python script to convert the extracted image data to a PNG file.
-**Note that the source code and prebuild binary works on Huawei Mate 7 (MT7-L09) Build MT7-L09V100R001C00B121SP05**
 
 #### Prepare
 - Make sure you have scanned a fingerprint with the fingerprint sensor.
 - Enable USB debugging on your phone and connect it to your PC. (**Nailgun attack doesn't require physical access to the phone, the connection is only used for transferring the binary to the phone and moving the output log to the PC.**)
-#### Run
+- Make sure you have root access on your phone.
 
+#### Run
 Firstly, push the prebuild binary into the phone
 ```
 adb push nailgun.ko /sdcard/
@@ -75,6 +107,6 @@ You will find a file named _fingerprint.png_ with the extracted fingerprint imag
 ```
 
 ## Contact
-Zhenyu Ning  
-zhenyu.ning _at_ wayne.edu  
-Compass Lab, Wayne State University (http://compass.cs.wayne.edu)
+- Zhenyu Ning
+- zhenyu.ning _at_ wayne.edu
+- Compass Lab, Wayne State University (http://compass.cs.wayne.edu)
