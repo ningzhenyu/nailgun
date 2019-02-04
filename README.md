@@ -41,7 +41,7 @@ pi@raspberrypi:~/PoC/Read_SCR $ dmesg
 The value of the SCR can be found in the kernel log.
 
 #### Demo Video
-https://youtu.be/vz2JQ_9Tb70
+https://youtu.be/1-sAqsTKiQU
   
 ### PoC #2:  Extracting the fingerprint image.
 #### Platform
