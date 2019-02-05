@@ -11,8 +11,7 @@ if len(sys.argv) != 2:
 
 file = sys.argv[1]
 
-data = []
-i = 0
+datas = []
 log_data = False
 with open(file) as fp:
     line = fp.readline()
@@ -21,12 +20,12 @@ with open(file) as fp:
         if line.endswith(DATA_FLAG):
             if log_data:
                 log_data = False
-                break
+                datas.append(data)
             else:
                 log_data = True
+                data = []
                 continue
         if log_data:
-            i += 1
             line = line.split(':')[1]
             image_data = line.strip().split(' ')
             for d in image_data:
@@ -34,21 +33,15 @@ with open(file) as fp:
                 data.append(d[4:6])
                 data.append(d[2:4])
                 data.append(d[0:2])
-                
-print (data)
-print (len(data))
-print (i)
 
-nrow = int(math.sqrt(len(data)))
-
-img = Image.new('RGB', (nrow, nrow))
-pixels = img.load()
-for j in range(nrow):
-    for i in range(nrow):
-        pixel = int(data[(nrow - j - 1) * nrow + i], 16)
-        pixels[i, j] = (pixel, pixel, pixel)
-
-img.save('/Users/ningzhenyu/Documents/paper/Oakland19-DebuggingStudy/fingerprint.png')
-
-#img2 = Image.open('/Users/ningzhenyu/Documents/paper/Oakland19-DebuggingStudy/fingerprint.png')
-#print list(img2.getdata())
+index = 0
+for data in datas:
+    nrow = int(math.sqrt(len(data)))
+    img = Image.new('RGB', (nrow, nrow))
+    pixels = img.load()
+    for j in range(nrow):
+        for i in range(nrow):
+            pixel = int(data[(nrow - j - 1) * nrow + i], 16)
+            pixels[i, j] = (pixel, pixel, pixel)
+    img.save('fingerprint_' + str(index) + '.png')
+    index += 1
