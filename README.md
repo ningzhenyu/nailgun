@@ -74,7 +74,7 @@ root@hwmt7:/ # dmesg
 ```
 If you can find the fingerprint data similar to this
 ```
-<6>[   51.284149] [0.1, swapper/1] --------------------
+<6>[   51.284149] [0.1, swapper/1] --------------------Fingerprint Start
 <6>[   51.284210] [0.1, swapper/1] 2ef5efac: 412f0100 87796552 e8e2dfd4 eff0eeea
 <6>[   51.284240] [0.1, swapper/1] 2ef5efbc: f3f3f3f3 f3f1f8f6 f3f3f2f1 eff4f4f8
 <6>[   51.284301] [0.1, swapper/1] 2ef5efcc: f1f0f2f0 f1f0eff3 f1f1efee efeff0ee
@@ -97,7 +97,7 @@ Finally, use the python script to convert the fingerprint data to a PNG file
 ```
 python log2image.py nailgun.log
 ```
-You will find the extracted fingerprint images is stored into PNG files naming _fingerprint\_x.png_, in which _x_ means the index of the image.
+You will find the extracted fingerprint images are stored into PNG files naming _fingerprint\_x.png_, in which _x_ means the index of the image.
 
 #### Demo Video
 https://youtu.be/5ioyneewFYQ
