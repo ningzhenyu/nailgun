@@ -41,7 +41,7 @@ pi@raspberrypi:~/PoC/Read_SCR $ dmesg
 The value of the SCR can be found in the kernel log.
 
 #### Demo Video
-https://youtu.be/UckBSnTNhio
+https://youtu.be/dlKK_69HJnk
   
 ### PoC #2:  Extracting the fingerprint image.
 #### Platform
@@ -97,7 +97,10 @@ Finally, use the python script to convert the fingerprint data to a PNG file
 ```
 python log2image.py nailgun.log
 ```
-You will find a file named _fingerprint.png_ with the extracted fingerprint image.
+You will find the extracted fingerprint images is stored into PNG files naming _fingerprint\_x.png_, in which _x_ means the index of the image.
+
+#### Demo Video
+https://youtu.be/5ioyneewFYQ
 
 ## Publication
 ```
