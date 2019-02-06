@@ -6,7 +6,7 @@ Processors nowadays are consistently equipped with debugging features to facilit
 
 The idea of Nailgun Attack is to misuse the debugging architecture with the inter-processor debugging model. In the inter-processor debugging model, a processor (debug host) is able to pause and debug another processor (debug target) on the same chip even when the debug target owns a higher privilege. With Nailgun, we are able to obtain sensitive information and achieve arbitrary payload execution in a high-privilege mode.
 
-For more details, please check our website http://compass.cs.wayne.edu/nailgun
+For more details, please check our website https://compass.cs.wayne.edu/nailgun
 
 ## Proof of Concept
 We will make two PoCs available on Github:
@@ -115,4 +115,4 @@ https://youtu.be/5ioyneewFYQ
 ## Contact
 - Zhenyu Ning
 - zhenyu.ning _at_ wayne.edu
-- Compass Lab, Wayne State University (http://compass.cs.wayne.edu)
+- Compass Lab, Wayne State University (https://compass.cs.wayne.edu)
