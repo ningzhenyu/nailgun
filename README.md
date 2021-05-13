@@ -114,5 +114,5 @@ https://youtu.be/5ioyneewFYQ
 
 ## Contact
 - Zhenyu Ning
-- zhenyu.ning _at_ wayne.edu
-- Compass Lab, Wayne State University (https://compass.cs.wayne.edu)
+- ningzy _at_ sustech.edu.cn
+- Compass Lab, Wayne State University (http://compass.sustech.edu.cn/)
